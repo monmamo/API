@@ -7,25 +7,25 @@ var ddbClient = require('documentdb').DocumentClient;
 
 var app = Express();
 
-// Routes.
-// Root goes to the Durandal application.
-// All other routes are assumed to be database accessors.
+// Routes. All routes are assumed to be database accessors.
 
 app.use('/data',function(request,response,next) { 
 	console.log("[/data]",request.path);
 	//TODO Handle a data retrieval command. 
 	//TODO Implement security to prevent access.
+	response.send('[/data] ' + request.path);
 })
 
 app.use('/action',function(request,response,next) { 
 	console.log("[/action]",request.path);
 	//TODO Handle an action. 
+	response.send('[/action] ' + request.path);
 })
 
 // Anything else: Assume that it is a UI request.
 app.use(function(request,response,next) { 
 	console.log("[default]",request.path);
-	response.sendFile(__dirname + '/public/UI' + request.path); 
+	response.send('[default] ' + request.path);
 })
 
 // Server.
