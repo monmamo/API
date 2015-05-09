@@ -9,11 +9,12 @@ var app = Express();
 
 // Routes. All routes are assumed to be database accessors.
 
-app.use('/data',function(request,response,next) { 
+// dc: document collection; id: ID of document within the specified collection
+app.use('/data/:dc/:id',function(request,response,next) { 
 	console.log("[/data]",request.path);
 	//TODO Handle a data retrieval command. 
 	//TODO Implement security to prevent access.
-	response.send('[/data] ' + request.path);
+	response.send('[/data][dc:' + request.params.dc + '][id:' + request.params.id + '] ' + request.path);
 })
 
 app.use('/action',function(request,response,next) { 
