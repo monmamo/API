@@ -1,37 +1,32 @@
 var http = require('http'),
 	Express = require('express');
 
-var ddbClient = require('documentdb').DocumentClient;
+var DocumentClient = require('documentdb').DocumentClient;
+var host = "https://mmm.documents.azure.com:443"; 
+var masterKey = process.env.DB_KEY;
+
+console.log("Creating database client.")
+var dbClient = new DocumentClient(host, {masterKey: masterKey}); 
 
 // Middleware.
 
 var app = Express();
 
-// Routes. All routes are assumed to be database accessors.
+// Routes. 
+var routes = [ 'data', 'character-actions', 'monster-actions' ];
+for (i in routes) {
+	console.log("Loading route: " + routes[i]);
+	module = require("./routes/" + routes[i]);
+	new module(app,dbClient)
+}
 
-// dc: document collection; id: ID of document within the specified collection
-app.use('/data/:dc/:id',function(request,response,next) { 
-	console.log("[/data]",request.path);
-	//TODO Handle a data retrieval command. 
-	//TODO Implement security to prevent access.
-	response.send('[/data][dc:' + request.params.dc + '][id:' + request.params.id + '] ' + request.path);
-})
-
-app.use('/action',function(request,response,next) { 
-	console.log("[/action]",request.path);
-	//TODO Handle an action. 
-	response.send('[/action] ' + request.path);
-})
-
-// Anything else: Assume that it is a UI request.
+// Anything else.
 app.use(function(request,response,next) { 
 	console.log("[default]",request.path);
-	response.send('[default] ' + request.path);
+	response.send("Bad path " + request.path);
 })
 
 // Server.
 
-//TODO Map this to something that is stored in the server rather than in code.
-var env = { };
-
-app.listen((env.PORT || 8080), (env.HOST || 'localhost'));
+app.listen((process.env.PORT || 8080), (process.env.HOST || 'localhost'));
+console.log("Server started.")
