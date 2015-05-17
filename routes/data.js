@@ -11,9 +11,6 @@ function getDocument(dbClient,databaseId,collectionId,documentId,callback) {
 
 module.exports = function(app,dbClient) {
 
-	var DoQmentDB  = require('doqmentdb');
-	var db = new DoQmentDB(dbClient, 'M');
-
 	// colid: document collection ID
 	// docid: ID of document within the specified collection
 	app.use('/data/:colid/:docid',function(request,response,next) { 
