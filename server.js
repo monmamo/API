@@ -13,7 +13,7 @@ var dbClient = new DocumentClient(host, {masterKey: masterKey});
 var app = Express();
 
 // Routes. 
-var routes = [ 'data', 'character-actions', 'monster-actions' ];
+var routes = ['character','league','member','monster','organization'];
 for (i in routes) {
 	console.log("Loading route: " + routes[i]);
 	module = require("./routes/" + routes[i]);
