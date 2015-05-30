@@ -1,4 +1,4 @@
-var Ladder = function() {
+var League = function() {
 	this.id = ""; // mock: {{objectId()}}
 	this.name = "";
 }
@@ -6,4 +6,4 @@ var Ladder = function() {
 
 
 // Pass the exported model to the caller.
-module.exports = Ladder;
+module.exports = League;

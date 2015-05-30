@@ -5,17 +5,21 @@ var Monster = function() {
 	this.experience = 0;
 	this.body = ""; // mock: "{{random('tetrapod','humanshape')}}",
 	this.modes = [];
+	this.attributeCost = 1000;
 	this.attributes = {
-		"length": 0,
-		"width": 0,
-		"height": 0,
+		"size": 0,
 		"heft": 0,
 		"mobility": 0
 	};
-	this.skills = {},
-	this.bond = [],
-	this.respect = [],
-	this.loyalty = []
+	this.skills = {};
+	this.bond = [];
+	this.respect = [];
+	this.loyalty = [];
+	
+	// Temporal properties.
+	// Valid only during a Competition.
+	this.health = 0;
+	this.damage = 0;
 }
 
 Monster.prototype.addBody = function(body) {

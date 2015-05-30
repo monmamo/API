@@ -1,4 +1,4 @@
-module.exports = function(app,dbClient) {
+module.exports = function(app) {
 
 	// Actions (verbs).
 
